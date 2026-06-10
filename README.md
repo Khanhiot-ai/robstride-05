@@ -76,12 +76,9 @@ sudo slcand -o -c -s8 /dev/ttyACM0 can0
 sudo ip link set can0 up
 sudo ip link set can0 txqueuelen 1000
 ip link show can0          # verify "state UP"
-candump can0               # xem motor phản hồi (Ctrl+C thoát)
 
- sudo ip link set can0 txqueuelen 1000
-# Kiểm tra
-ip link show can0
-# Phải thấy: state UP
+
+
 ```
 
 Lưu ý: -s8 = 1 Mbps (Robstride mặc định). Phải chạy lại sau mỗi lần reboot.
