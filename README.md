@@ -145,18 +145,27 @@ Cắm từng motor một vào CAN, bật nguồn motor (24V), rồi chạy:
 
 ## Bước 5 — Tìm ID của motor
 
-Cắm **từng motor một** vào CAN, bật nguồn motor (24V), rồi chạy:
-
-```bash
-python3 - << 'EOF'
+python3 << 'EOF'
 import can, time
- for motor_id in range(256):
-print(f"Ket qua: {list(set(found))}")
+bus = can.Bus(interface='socketcan', channel='can0')
+found = []
+for motor_id in range(256):
+    arb = (2 << 24) | (0xFD << 8) | motor_id
+    try:
+        bus.send(can.Message(arbitration_id=arb, data=[0]*8, is_extended_id=True))
+    except can.CanError:
+        continue
+    deadline = time.time() + 0.01
+    while time.time() < deadline:
+        r = bus.recv(timeout=0.005)
+        if r is None:
+            break
+        resp_id = (r.arbitration_id >> 8) & 0xFF
+        if resp_id == motor_id and resp_id not in found:
+            found.append(resp_id)
+print(f"Ket qua: {sorted(set(found))}")
 bus.shutdown()
 EOF
-```
-
-Ghi lại ID của 2 motor (thường là 6 và 7, hoặc 127 nếu chưa đổi).
 
 Bước 6 : chạy file
 ---
