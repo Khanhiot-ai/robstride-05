@@ -171,7 +171,6 @@ for motor_id in range(256):
 print(f"Ket qua: {sorted(set(found))}")
 bus.shutdown()
 EOF
-
 Bước 6 : chạy file
 ---
 
