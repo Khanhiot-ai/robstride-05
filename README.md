@@ -69,6 +69,14 @@ bash# Tìm port
 # Tìm port
 ls /dev/ttyACM*
 # Thường là /dev/ttyACM0
+sudo killall slcand 2>/dev/null
+sudo ip link set can0 down 2>/dev/null
+ls /dev/ttyACM*
+sudo slcand -o -c -s8 /dev/ttyACM0 can0
+sudo ip link set can0 up
+sudo ip link set can0 txqueuelen 1000
+ip link show can0          # verify "state UP"
+candump can0               # xem motor phản hồi (Ctrl+C thoát)
 
  sudo ip link set can0 txqueuelen 1000
 # Kiểm tra
