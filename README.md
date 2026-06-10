@@ -150,6 +150,7 @@ Cắm từng motor một vào CAN, bật nguồn motor (24V), rồi chạy:
 
 ## Bước 5 — Tìm ID của motor
 
+
 python3 << 'EOF'
 import can, time
 bus = can.Bus(interface='socketcan', channel='can0')
@@ -171,6 +172,8 @@ for motor_id in range(256):
 print(f"Ket qua: {sorted(set(found))}")
 bus.shutdown()
 EOF
+
+
 Bước 6 : chạy file
 ---
 
