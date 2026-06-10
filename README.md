@@ -1,5 +1,5 @@
 
-@@ -1,30 +1,58 @@
+
 # robstride-05
 control robstride 05
 control robstride 0.5
@@ -70,7 +70,7 @@ bash# Tìm port
 ls /dev/ttyACM*
 # Thường là /dev/ttyACM0
 
-@@ -36,19 +64,29 @@ sudo ip link set can0 txqueuelen 1000
+ sudo ip link set can0 txqueuelen 1000
 # Kiểm tra
 ip link show can0
 # Phải thấy: state UP
@@ -105,7 +105,7 @@ bash# Tạo file
 cat > ~/start_can.sh << 'EOF'
 #!/bin/bash
 # Cho slcan firmware:
-@@ -62,20 +100,38 @@ chmod +x ~/start_can.sh
+ +x ~/start_can.sh
 
 # Dùng:
 ~/start_can.sh
@@ -150,8 +150,7 @@ Cắm **từng motor một** vào CAN, bật nguồn motor (24V), rồi chạy:
 ```bash
 python3 - << 'EOF'
 import can, time
-
-@@ -100,11 +156,79 @@ for motor_id in range(256):
+ for motor_id in range(256):
 print(f"Ket qua: {list(set(found))}")
 bus.shutdown()
 EOF
